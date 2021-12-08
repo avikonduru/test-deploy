@@ -29,7 +29,65 @@ import { Layout } from 'antd';
 const { Content } = Layout;
 
 function App() {
-  return <div>Hello World</div>;
+  return (
+    <div className="App">
+      <Router>
+        <Layout>
+          <Sidebar />
+          <Layout style={{ marginLeft: 200 }}>
+            <Content
+              style={{
+                margin: '24px 24px 0',
+                overflow: 'initial',
+                minHeight: '90vh',
+              }}
+            >
+              <Routes>
+                <Route
+                  exact
+                  path="/insights"
+                  element={<InsightsPage />}
+                />
+                <Route
+                  exact
+                  path="/transactions"
+                  element={<TransactionsPage />}
+                />
+                <Route
+                  exact
+                  path="/send-money"
+                  element={<SendMoneyPage />}
+                />
+                <Route exact path="/cards" element={<CardsPage />} />
+                <Route
+                  exact
+                  path="/accounts"
+                  element={<AccountsPage />}
+                />
+                <Route
+                  exact
+                  path="/get-cash"
+                  element={<GetCashPage />}
+                />
+                <Route
+                  exact
+                  path="/settings"
+                  element={<SettingsPage />}
+                />
+                <Route exact path="/kyc" element={<KycPage />} />
+                <Route
+                  exact
+                  path="/transaction"
+                  element={<TransactionPage />}
+                />
+              </Routes>
+            </Content>
+            <Footer />
+          </Layout>
+        </Layout>
+      </Router>
+    </div>
+  );
 }
 
 export default App;
