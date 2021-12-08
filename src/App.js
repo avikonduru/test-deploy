@@ -23,10 +23,10 @@ import './App.css';
 // // import Sidebar from './components/Sidebar';
 // // import Footer from './components/Footer';
 
-// // antd
-// import { Layout } from 'antd';
+// antd
+import { Layout } from 'antd';
 
-// const { Content } = Layout;
+const { Content } = Layout;
 
 function App() {
   return <div>Hello World</div>;
