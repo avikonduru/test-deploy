@@ -29,7 +29,7 @@ const Sidebar = () => {
           height: '100vh',
           position: 'fixed',
           left: 0,
-          backgroundColor: '#1552F0',
+          backgroundColor: '#211D1E',
         }}
       >
         <Title
@@ -47,7 +47,7 @@ const Sidebar = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
-          style={{ borderRight: 0, backgroundColor: '#1552F0' }}
+          style={{ borderRight: 0, backgroundColor: '#211D1E' }}
         >
           <Menu.Item
             key="1"
