@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 // css
-import './App.css';
+// import './App.css';
 
 // // Pages
 // // import SettingsPage from './pages/SettingsPage';
