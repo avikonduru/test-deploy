@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 // Sub Components
 import Details from './Details';
@@ -9,7 +9,7 @@ import { Row, Col, PageHeader, Button } from 'antd';
 
 const SettingsPage = () => {
   return (
-    <div>
+    <Fragment>
       <Row style={{ marginBottom: 20 }}>
         <Col span={24}>
           <PageHeader
@@ -34,7 +34,7 @@ const SettingsPage = () => {
           </Button>
         </Col>
       </Row>
-    </div>
+    </Fragment>
   );
 };
 

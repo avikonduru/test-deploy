@@ -51,7 +51,11 @@ const TransactionPage = () => {
       </Row>
       <Row style={{ marginBottom: 20 }}>
         <Col span={24}>
-          <Card title="Details" bordered={false}>
+          <Card
+            title="Details"
+            bordered={false}
+            extra={<a href="#">Update Details</a>}
+          >
             <Row gutter={24} style={{ marginBottom: 10 }}>
               <Col span={8}>
                 ID: <Text strong>1234567890</Text>

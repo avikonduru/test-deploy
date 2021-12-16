@@ -1,102 +1,144 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // antd
 import { Card, Button, Dropdown, Menu } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-
-// Chartjs
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-import faker from 'faker';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-);
-
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top',
-      display: false,
-    },
-    title: {
-      display: false,
-      text: 'Chart.js Bar Chart',
-    },
-  },
-};
-
-const labels = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-];
-
-const graphDatapoints = labels.map(() =>
-  faker.datatype.number({ min: -1000, max: 1000 }),
-);
-
-const datapointColors = graphDatapoints.map((graphDatapoint) =>
-  graphDatapoint >= 0
-    ? 'rgba(53, 162, 235, 0.5)'
-    : 'rgba(255, 99, 132, 0.5)',
-);
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Net Cash Flow',
-      data: graphDatapoints,
-      backgroundColor: datapointColors,
-    },
-  ],
-};
-
-const menu = (
-  <Menu>
-    <Menu.Item>This Month</Menu.Item>
-    <Menu.Item>This Quarter</Menu.Item>
-    <Menu.Item>This Years</Menu.Item>
-  </Menu>
-);
+import { Column, Line } from '@ant-design/charts';
 
 const NetCashFlow = () => {
+  const [graphKey, setGraphKey] = useState(0);
+
+  const data = [
+    {
+      month: 'January',
+      cashflow: -55000,
+    },
+    {
+      month: 'February',
+      cashflow: -30000,
+    },
+    {
+      month: 'March',
+      cashflow: 15610,
+    },
+    {
+      month: 'April',
+      cashflow: 14500,
+    },
+    {
+      month: 'May',
+      cashflow: 48000,
+    },
+  ];
+  const columnConfig = {
+    data,
+    xField: 'month',
+    yField: 'cashflow',
+    colorField: 'cashflow',
+    color: ({ month }) => {
+      if (month == 'January' || month == 'February') {
+        return '#F4664A';
+      }
+      return '#5B8FF9';
+    },
+    label: {
+      // 可手动配置 label 数据标签位置
+      position: 'middle',
+      // 'top', 'bottom', 'middle',
+      // 配置样式
+      style: {
+        fill: '#FFFFFF',
+        opacity: 0.6,
+      },
+    },
+    xAxis: {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    },
+    meta: {
+      month: {
+        alias: 'Month',
+      },
+      cashflow: {
+        alias: 'Cash Flow',
+      },
+    },
+  };
+
+  const lineConfig = {
+    data,
+    padding: 'auto',
+    xField: 'month',
+    yField: 'cashflow',
+    annotations: [
+      {
+        type: 'regionFilter',
+        start: ['min', '0'],
+        end: ['max', '-10000000000'],
+        color: '#F4664A',
+      },
+    ],
+  };
+
+  const handleGraphChange = (e) => {
+    console.log('click ', e.key);
+    setGraphKey(e.key);
+  };
+
+  const graphMenu = (
+    <Menu>
+      <Menu.Item key="0" onClick={handleGraphChange}>
+        Waterfall Chart
+      </Menu.Item>
+      <Menu.Item key="1" onClick={handleGraphChange}>
+        Line Chart
+      </Menu.Item>
+    </Menu>
+  );
+
+  const timeMenu = (
+    <Menu>
+      <Menu.Item key="0">This Month</Menu.Item>
+      <Menu.Item key="1">This Quarter</Menu.Item>
+      <Menu.Item key="2">This Years</Menu.Item>
+    </Menu>
+  );
+
   return (
     <div>
       <Card
-        title="Waterfall Net Cash Flow"
+        title="Net Cash Flow"
         extra={
-          <Dropdown overlay={menu} placement="bottomRight">
-            <Button>
-              2022 Q1 <DownOutlined />
-            </Button>
-          </Dropdown>
+          <div>
+            <Dropdown overlay={graphMenu} placement="bottomRight">
+              <Button style={{ marginRight: 10 }}>
+                {graphKey == 0 ? (
+                  <span>Waterfall Chart</span>
+                ) : (
+                  <span>Line Chart</span>
+                )}{' '}
+                <DownOutlined />
+              </Button>
+            </Dropdown>
+            <Dropdown overlay={timeMenu} placement="bottomRight">
+              <Button>
+                2022 Q1 <DownOutlined />
+              </Button>
+            </Dropdown>
+          </div>
         }
         bordered={false}
         style={{
           boxShadow: '5px 8px 24px 5px rgba(208, 216, 243, 0.6)',
         }}
       >
-        <Bar options={options} data={data} />
+        {graphKey == 0 ? (
+          <Column {...columnConfig} />
+        ) : (
+          <Line {...lineConfig} />
+        )}
       </Card>
     </div>
   );

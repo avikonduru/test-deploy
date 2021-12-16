@@ -3,58 +3,75 @@ import React from 'react';
 // antd
 import { Card, Button, Dropdown, Menu } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
+import { Pie } from '@ant-design/charts';
 
-// Chartjs
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
-
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'left',
-      display: true,
-    },
-    title: {
-      display: false,
-      text: 'Chart.js Bar Chart',
+const data = [
+  {
+    type: 'Saas Subscriptions',
+    value: 27,
+  },
+  {
+    type: 'Food and Drink',
+    value: 25,
+  },
+  {
+    type: 'Travel',
+    value: 18,
+  },
+  {
+    type: 'Supplies',
+    value: 15,
+  },
+  {
+    type: 'General',
+    value: 10,
+  },
+  {
+    type: 'Other',
+    value: 5,
+  },
+];
+const config = {
+  appendPadding: 10,
+  data,
+  angleField: 'value',
+  colorField: 'type',
+  radius: 1,
+  innerRadius: 0.5,
+  legend: {
+    layout: 'horizontal',
+    position: 'bottom-right',
+    slidable: true,
+  },
+  label: {
+    type: 'inner',
+    offset: '-50%',
+    autoRotate: false,
+    content: '{value}',
+    style: {
+      textAlign: 'center',
+      fontSize: 14,
     },
   },
-};
-
-export const data = {
-  labels: [
-    'Food & Drinks',
-    'Saas Subscriptions',
-    'Suppliers',
-    'Travel',
-  ],
-  datasets: [
+  interactions: [
     {
-      label: 'Dollars',
-      data: [12, 19, 3, 5],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-      ],
-      borderWidth: 1,
+      type: 'element-selected',
+    },
+    {
+      type: 'element-active',
     },
   ],
+  statistic: {
+    title: false,
+    content: {
+      style: {
+        whiteSpace: 'pre-wrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      },
+      content: '',
+    },
+  },
 };
 
 const menu = (
@@ -89,7 +106,7 @@ const Spending = () => {
           }}
         >
           <div style={{ width: 400 }}>
-            <Doughnut options={options} data={data} />
+            <Pie {...config} />
           </div>
         </div>
       </Card>

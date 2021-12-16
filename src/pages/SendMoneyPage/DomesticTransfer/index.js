@@ -99,6 +99,7 @@ const DomesticTransfer = () => {
                 <Option value="saas subscription">
                   Saas Subscription
                 </Option>
+                <Option value="general">General</Option>
                 <Option value="food and drink">Food & Drink</Option>
                 <Option value="suppliers">Suppliers</Option>
                 <Option value="travel">Travel</Option>
