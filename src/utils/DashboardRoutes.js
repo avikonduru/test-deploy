@@ -36,11 +36,7 @@ const DashboardRoutes = () => {
           }}
         >
           <Switch>
-            <Route
-              exact
-              path="/insights"
-              element={<InsightsPage />}
-            />
+            <Route exact path="/" element={<InsightsPage />} />
             <Route
               exact
               path="/transactions"

@@ -11,7 +11,7 @@ const Routes = () => {
   return (
     <Fragment>
       <Switch>
-        <Route path="/" element={<SignInPage />} />
+        <Route path="/signin" element={<SignInPage />} />
         <Route path="/*" element={<DashboardRoutes />} />
       </Switch>
     </Fragment>
